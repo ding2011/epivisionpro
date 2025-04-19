@@ -1,0 +1,74 @@
+<!-- download.html -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>EpiVision - 下载中心</title>
+    <style>
+        /* 继承主站样式 */
+        @import url('styles.css');
+
+        .platform-card {
+            display: flex;
+            align-items: center;
+            padding: 30px;
+            margin: 30px 0;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .platform-card:hover {
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .os-icon {
+            width: 80px;
+            margin-right: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="gradient-title">软件下载</h1>
+
+        <!-- Windows 下载 -->
+        <div class="platform-card">
+            <img src="windows-icon.png" class="os-icon" alt="Windows">
+            <div>
+                <h2>Windows 版本</h2>
+                <p>支持 Windows 10/11 64位系统</p>
+                <a href="#" class="download-btn">下载安装包 (.exe)</a>
+            </div>
+        </div>
+
+        <!-- macOS 下载 -->
+        <div class="platform-card">
+            <img src="mac-icon.png" class="os-icon" alt="macOS">
+            <div>
+                <h2>macOS 版本</h2>
+                <p>支持 macOS 12.0 Monterey 及以上</p>
+                <a href="#" class="download-btn">下载安装包 (.dmg)</a>
+            </div>
+        </div>
+
+        <!-- Linux 下载 -->
+        <div class="platform-card">
+            <img src="linux-icon.png" class="os-icon" alt="Linux">
+            <div>
+                <h2>Linux 版本</h2>
+                <p>提供DEB/RPM双格式包</p>
+                <div>
+                    <a href="#" class="download-btn">DEB 包</a>
+                    <a href="#" class="download-btn">RPM 包</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="download-section">
+            <a href="index.html" class="download-btn">返回主页面</a>
+        </div>
+    </div>
+</body>
+</html>
