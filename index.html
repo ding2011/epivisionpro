@@ -2,335 +2,151 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>EpiVision Pro | 全学科可视化解决方案</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.css">
+    <title>EpiVision 序列分析工具 - 帮助手册</title>
     <style>
         :root {
-            --primary: #0078D4;
-            --accent: #7FBA00;
-            --bg: #000;
-            --surface: #1a1a1a;
-            --text: #fff;
-            --tech-gradient: linear-gradient(135deg, #0078D4 0%, #7FBA00 100%);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            --primary-blue: #42A5F5;
+            --dark-blue: #1976D2;
+            --gradient-bg: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
 
         body {
-            background: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-            line-height: 1.6;
+            font-family: '微软雅黑', 'Segoe UI', sans-serif;
+            background: var(--gradient-bg);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
         }
 
-        #preloader {
-            position: fixed;
-            width: 100%;
-            height: 100vh;
-            background: var(--bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            padding: 40px;
         }
 
-        .logo-container {
-            position: relative;
-            width: 400px;
-            height: 400px;
-        }
-
-        .logo-symbol {
-            width: 300px;
-            height: 300px;
-            position: relative;
-            filter: drop-shadow(0 0 20px rgba(0,120,212,0.5));
-        }
-
-        .dna-line {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 12px solid var(--primary);
-            border-radius: 50%;
-            clip-path: inset(0 50% 0 0);
-            transform-origin: center;
-            opacity: 0.8;
-        }
-
-        .dna-line::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 12px solid var(--primary);
-            border-radius: 50%;
-            left: -100%;
-            clip-path: inset(0 0 0 50%);
-        }
-
-        .code-brackets {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--primary);
-            font-size: 4em;
-            opacity: 0;
-            text-shadow: 0 0 15px rgba(0,120,212,0.5);
-        }
-
-        .logo-text {
-            position: absolute;
-            bottom: -120px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 3.5em;
-            color: var(--accent);
-            opacity: 0;
-            letter-spacing: 4px;
-            font-weight: 700;
-            text-shadow: 0 0 20px rgba(127,186,0,0.4);
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 5%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            transform: translateY(-100%);
-            opacity: 0;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        nav.active {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .page {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        /* 标题特效 */
+        .gradient-title {
+            background: linear-gradient(45deg, #2b5876, #4e4376);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5em;
             text-align: center;
-            padding: 0 5%;
-            position: relative;
-            z-index: 1;
+            margin-bottom: 30px;
+            animation: titleGlow 2s ease-in-out infinite alternate;
         }
 
-        .page h1 {
-            font-size: 4em;
-            margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(50px);
-            max-width: 1200px;
-            line-height: 1.2;
+        @keyframes titleGlow {
+            from { text-shadow: 0 0 10px rgba(43,88,118,0.3); }
+            to { text-shadow: 0 0 20px rgba(78,67,118,0.5); }
         }
 
-        .tech-box {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin: 3rem 0;
-            justify-content: center;
-            max-width: 1200px;
+        /* 功能区块样式 */
+        .feature-section {
+            border-left: 4px solid var(--primary-blue);
+            padding-left: 20px;
+            margin: 30px 0;
+            transition: transform 0.3s;
         }
 
-        .tech-item {
-            padding: 1rem 2rem;
-            background: var(--tech-gradient);
+        .feature-section:hover {
+            transform: translateX(10px);
+        }
+
+        /* 图片特效 */
+        .screenshot {
+            width: 80%;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .screenshot:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* 下载按钮 */
+        .download-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 15px;
+            border-radius: 25px;
             color: white;
-            border-radius: 50px;
-            font-weight: 600;
-            opacity: 0;
-            transform: scale(0.8);
-            border: 2px solid rgba(255,255,255,0.1);
-        }
-
-        .contact-button {
-            padding: 1.5rem 3rem;
-            background: var(--tech-gradient);
-            color: white;
-            border-radius: 50px;
-            font-size: 1.2em;
-            font-weight: 600;
+            font-weight: bold;
             text-decoration: none;
-            opacity: 0;
-            transform: translateY(30px);
+            transition: all 0.3s;
+            background: var(--primary-blue);
+            border: 2px solid var(--dark-blue);
         }
 
-        @media (max-width: 768px) {
-            .page h1 {
-                font-size: 2.5em;
-            }
+        .download-btn:hover {
+            background: var(--dark-blue);
+            transform: translateY(-3px);
+        }
+
+        /* 文字特效 */
+        .highlight {
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
-    <canvas id="particles-canvas"></canvas>
-    <div id="preloader">
-        <div class="logo-container">
-            <div class="logo-symbol">
-                <div class="dna-line"></div>
-                <div class="code-brackets">&lt; &gt;</div>
+    <div class="container">
+        <h1 class="gradient-title">EpiVision 序列编辑器 v2.0</h1>
+
+        <!-- 功能展示 -->
+        <div class="feature-section">
+            <h2>▌ 核心功能</h2>
+            <img src="help-screenshot.png" alt="软件界面截图" class="screenshot">
+            <ul>
+                <li><span class="highlight">DNA序列分析</span> - 实时碱基统计、GC滑动窗口分析</li>
+                <li><span class="highlight">智能引物设计</span> - 支持自定义长度/Tm值/GC含量参数</li>
+                <li><span class="highlight">高级分析</span> - 病毒基因组分析、开放阅读框预测</li>
+            </ul>
+        </div>
+
+        <!-- 操作指南 -->
+        <div class="feature-section">
+            <h2>▌ 快速入门</h2>
+            <div class="guide-steps">
+                <h3>1. 输入序列</h3>
+                <p>直接粘贴ATCG序列或通过<span class="highlight">文件菜单</span>导入FASTA格式</p>
+                
+                <h3>2. 选择分析模式</h3>
+                <p>使用实时分析开关即刻获取<span class="highlight">蛋白质翻译</span>和<span class="highlight">反向互补序列</span></p>
             </div>
-            <div class="logo-text">EpiVision Pro</div>
+        </div>
+
+        <!-- 技术支持 -->
+        <div class="feature-section">
+            <h2>▌ 技术支持</h2>
+            <p>遇到问题请提供：</p>
+            <ul>
+                <li>软件版本号</li>
+                <li>详细操作步骤</li>
+                <li>相关参数截图</li>
+            </ul>
+            <p>联系我们：<br>
+            ✉ <span class="highlight">EpiVisionPro@outlook.com</span></p>
+        </div>
+
+        <!-- 下载链接 -->
+        <div class="download-section">
+            <a href="epivisionpro//download.html" class="download-btn">立即下载最新版本</a>
+            <p>当前版本：v2.0.1 | 更新日期：2025-05-15</p>
         </div>
     </div>
-
-    <nav>
-        <div class="nav-logo">
-            <div class="logo-symbol">
-                <div class="dna-line"></div>
-                <div class="code-brackets">&lt; &gt;</div>
-            </div>
-            <span>EpiVision Pro</span>
-        </div>
-    </nav>
-
-    <main>
-        <section class="page">
-            <h1 data-animate>想拥有专属可视化网站？</h1>
-        </section>
-
-        <section class="page">
-            <h1 data-animate>我们为您实现！</h1>
-        </section>
-
-        <section class="page">
-            <h1 data-animate>用前沿技术打造最佳方案</h1>
-            <div class="tech-box">
-                <div class="tech-item" data-animate>Java 21</div>
-                <div class="tech-item" data-animate>Python AI</div>
-                <div class="tech-item" data-animate>React 18</div>
-            </div>
-        </section>
-
-        <section class="page">
-            <h1 data-animate>立即开启您的可视化项目</h1>
-            <a href="mailto:contact@epivision.pro" class="contact-button" data-animate>
-                contact@epivision.pro
-            </a>
-        </section>
-    </main>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.js"></script>
-    <script>
-        const tl = gsap.timeline({
-            onComplete: () => {
-                gsap.to("#preloader", {
-                    opacity: 0,
-                    duration: 1,
-                    onComplete: () => {
-                        document.getElementById("preloader").style.display = "none";
-                        document.querySelector("nav").classList.add("active");
-                        startPageAnimations();
-                    }
-                });
-            }
-        });
-
-        tl.from(".dna-line", {
-            rotation: 720,
-            opacity: 0,
-            duration: 2.5,
-            stagger: 0.2
-        })
-        .from(".code-brackets", {
-            opacity: 0,
-            scale: 0.5,
-            duration: 1.5
-        }, "-=1")
-        .from(".logo-text", {
-            opacity: 0,
-            y: 50,
-            duration: 1.5
-        }, "-=1");
-
-        function startPageAnimations() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const elements = entry.target.querySelectorAll('[data-animate]');
-                        elements.forEach((el, i) => {
-                            gsap.from(el, {
-                                opacity: 0,
-                                y: 50,
-                                scale: 0.9,
-                                duration: 1,
-                                delay: i * 0.15,
-                                ease: "back.out(1.7)"
-                            });
-                        });
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.2 });
-
-            document.querySelectorAll('.page').forEach(page => {
-                observer.observe(page);
-            });
-        }
-
-        particlesJS('particles-canvas', {
-            particles: {
-                number: { value: 150, density: { enable: true, value_area: 800 } },
-                color: { value: "#0078D4" },
-                shape: { type: "circle" },
-                opacity: { value: 0.6, random: true },
-                size: { value: 3, random: true },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: "#0078D4",
-                    opacity: 0.4,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 3,
-                    direction: "none",
-                    random: true,
-                    out_mode: "out"
-                }
-            },
-            interactivity: {
-                detect_on: "canvas",
-                events: {
-                    onhover: { enable: true, mode: "repulse" },
-                    onclick: { enable: true, mode: "push" },
-                    resize: true
-                }
-            },
-            retina_detect: true
-        });
-
-        let lastScroll = 0;
-        window.addEventListener("scroll", () => {
-            const currentScroll = window.pageYOffset;
-            const nav = document.querySelector("nav");
-            nav.classList.toggle("active", currentScroll > 0);
-            lastScroll = currentScroll;
-        });
-    </script>
 </body>
 </html>
